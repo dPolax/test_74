@@ -181,7 +181,7 @@ def toggle_admin(user_id):
         flash(f'Статус користувача змінено на {status}', 'success')
     
     return redirect(url_for('admin_users'))
-
+#1
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
