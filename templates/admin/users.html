@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Керування користувачами - Мій сайт{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Керування користувачами</h1>
+</div>
+
+<div class="d-flex">
+    <div class="flex-column mb-4" style="width: 25%;">
+        <div class="list-group">
+            <a href="{{ url_for('admin_panel') }}" class="list-group-item list-group-item-action">
+                Панель керування
+            </a>
+            <a href="{{ url_for('admin_users') }}" class="list-group-item list-group-item-action active">
+                Користувачі
+            </a>
+        </div>
+    </div>
+    
+    <div style="width: 75%;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Список користувачів</h5>
+                <div class="table-responsive" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+                    <div class="d-flex p-2 border-bottom" style="font-weight: bold; width: 100%; justify-content: flex-start ;">
+                        <div class="text-start" style="flex-basis: 50px;">ID</div>
+                        <div class="text-start" style="flex-basis: 150px;">Ім'я користувача</div>
+                        <div class="text-start" style="flex-basis: 200px;">Email</div>
+                        <div class="text-start" style="flex-basis: 150px;">Статус</div>
+                        <div class="text-start" style="flex-basis: 200px;">Дії</div>
+                    </div>
+
+                    {% for user in users %}
+                    <div class="d-flex p-2 border-bottom" style="width: 100%; justify-content: flex-start;">
+                        <div class="text-start" style="flex-basis: 50px;">{{ user.id }}</div>
+                        <div class="text-start" style="flex-basis: 150px;">{{ user.username }}</div>
+                        <div class="text-start" style="flex-basis: 200px;">{{ user.email }}</div>
+                        <div class="text-start" style="flex-basis: 150px;">
+                            {% if user.is_admin %}
+                                <span class="badge bg-success">Адміністратор</span>
+                            {% else %}
+                                <span class="badge bg-secondary">Користувач</span>
+                            {% endif %}
+                        </div>
+                        <div class="text-start" style="flex-basis: 300px;">
+                            {% if user.id != current_user.id %}
+                                <a href="{{ url_for('toggle_admin', user_id=user.id) }}" class="btn btn-sm btn-warning">
+                                    {% if user.is_admin %}Зняти адміністратора{% else %}Зробити адміністратором{% endif %}
+                                </a>
+                                <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-sm btn-danger" 
+                                   onclick="return confirm('Ви впевнені, що хочете видалити цього користувача?')">
+                                    Видалити
+                                </a>
+                            {% else %}
+                                <span class="text-muted">Поточний користувач</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

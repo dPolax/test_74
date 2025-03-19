@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Адмін-панель - Мій сайт{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Адмін-панель</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="list-group">
+            <a href="{{ url_for('admin_panel') }}" class="list-group-item list-group-item-action active">
+                Панель керування
+            </a>
+            <a href="{{ url_for('admin_users') }}" class="list-group-item list-group-item-action">
+                Користувачі
+            </a>
+            <!-- Тут можна додати інші пункти адмін-меню -->
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Статистика</h5>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card bg-primary text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Користувачів</h5>
+                                <p class="card-text display-4">{{ users|length }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-success text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Адміністраторів</h5>
+                                <p class="card-text display-4">{{ users|selectattr('is_admin', 'equalto', true)|list|length }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card bg-info text-white mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Звичайних користувачів</h5>
+                                <p class="card-text display-4">{{ users|selectattr('is_admin', 'equalto', false)|list|length }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}Вхід - Мій сайт{% endblock %}
+{% block title %}Додати користувача - Адмінка{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-center">Вхід</h2>
-                
-                {% if first_run %}
-                <div class="alert alert-warning">
-                    Перший запуск: немає адміністратора. <a href="{{ url_for('setup_admin') }}">Створити адміністратора</a>
-                </div>
-                {% endif %}
-                
+                <h2 class="card-title text-center">Додати користувача</h2>
                 <form method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Ім'я користувача</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Пароль</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="is_admin" name="is_admin">
+                        <label class="form-check-label" for="is_admin">
+                            Зробити адміністратором
+                        </label>
+                    </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Увійти</button>
+                        <button type="submit" class="btn btn-primary">Додати користувача</button>
                     </div>
                 </form>
-                <div class="text-center mt-3">
-                    <p>Ще немає акаунта? <a href="{{ url_for('register') }}">Зареєструватися</a></p>
-                </div>
             </div>
         </div>
     </div>

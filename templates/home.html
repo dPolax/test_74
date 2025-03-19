@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Головна - Мій сайт{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Ласкаво просимо на мій сайт!</h1>
+    <p class="lead">Це шаблон для Flask-застосунку з адмінкою та реєстрацією користувачів.</p>
+    <hr class="my-4">
+    <p>Використовуйте навігацію вгорі для переходу на потрібні сторінки.</p>
+    {% if not current_user.is_authenticated %}
+        <a class="btn btn-primary btn-lg" href="{{ url_for('login') }}" role="button">Увійти</a>
+        <a class="btn btn-secondary btn-lg" href="{{ url_for('register') }}" role="button">Зареєструватися</a>
+    {% endif %}
+</div>
+{% endblock %}

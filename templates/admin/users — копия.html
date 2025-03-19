@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Керування користувачами - Мій сайт{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Керування користувачами</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="list-group">
+            <a href="{{ url_for('admin_panel') }}" class="list-group-item list-group-item-action">
+                Панель керування
+            </a>
+            <a href="{{ url_for('admin_users') }}" class="list-group-item list-group-item-action active">
+                Користувачі
+            </a>
+            <!-- Тут можна додати інші пункти адмін-меню -->
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Список користувачів</h5>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ім'я користувача</th>
+                                <th>Email</th>
+                                <th>Статус</th>
+                                <th>Дії</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    {% if user.is_admin %}
+                                    <span class="badge bg-success">Адміністратор</span>
+                                    {% else %}
+                                    <span class="badge bg-secondary">Користувач</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if user.id != current_user.id %}
+                                    <a href="{{ url_for('toggle_admin', user_id=user.id) }}" class="btn btn-sm btn-warning">
+                                        {% if user.is_admin %}Зняти адміністратора{% else %}Зробити адміністратором{% endif %}
+                                    </a>
+                                    <a href="{{ url_for('delete_user', user_id=user.id) }}" class="btn btn-sm btn-danger" 
+                                       onclick="return confirm('Ви впевнені, що хочете видалити цього користувача?')">
+                                        Видалити
+                                    </a>
+                                    {% else %}
+                                    <span class="text-muted">Поточний користувач</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,36 +1,33 @@
 {% extends "base.html" %}
 
-{% block title %}Вхід - Мій сайт{% endblock %}
+{% block title %}Налаштування адміністратора - Мій сайт{% endblock %}
 
 {% block content %}
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <div class="card">
             <div class="card-body">
-                <h2 class="card-title text-center">Вхід</h2>
-                
-                {% if first_run %}
-                <div class="alert alert-warning">
-                    Перший запуск: немає адміністратора. <a href="{{ url_for('setup_admin') }}">Створити адміністратора</a>
+                <h2 class="card-title text-center">Налаштування адміністратора</h2>
+                <div class="alert alert-info">
+                    Це перший запуск сайту. Будь ласка, створіть обліковий запис адміністратора.
                 </div>
-                {% endif %}
-                
                 <form method="POST">
                     <div class="mb-3">
                         <label for="username" class="form-label">Ім'я користувача</label>
                         <input type="text" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="password" class="form-label">Пароль</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Увійти</button>
+                        <button type="submit" class="btn btn-primary">Створити адміністратора</button>
                     </div>
                 </form>
-                <div class="text-center mt-3">
-                    <p>Ще немає акаунта? <a href="{{ url_for('register') }}">Зареєструватися</a></p>
-                </div>
             </div>
         </div>
     </div>
